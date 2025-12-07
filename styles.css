@@ -12,8 +12,8 @@
     --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.12);
     --radius: 12px;
     --transition: all 0.25s ease;
-    --font-base: 'Racing Sans One', system-ui, -apple-system, sans-serif;
-    --font-display: 'Racing Sans One', system-ui, -apple-system, sans-serif;
+    --font-base: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --font-display: 'Montserrat', system-ui, -apple-system, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -21,7 +21,7 @@
 body {
     margin: 0;
     font-family: var(--font-base);
-    font-size: 17px;
+    font-size: 18px;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
@@ -90,28 +90,28 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
     display: flex;
     align-items: center;
     font-weight: 800;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     color: var(--text);
     text-transform: uppercase;
 }
 
 .logo-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.25;
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.6rem;
     list-style: none;
 }
 
 .nav-link {
     color: var(--text);
     font-weight: 700;
-    font-size: 1.05rem;
-    padding: 0.6rem 0.35rem;
+    font-size: 1.1rem;
+    padding: 0.65rem 0.4rem;
     position: relative;
     transition: var(--transition);
 }
@@ -296,15 +296,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 
 .hero-title {
     font-size: clamp(2.6rem, 8vw, 4rem);
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.25rem;
     color: var(--text);
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--muted);
-    margin-bottom: 2.4rem;
-    line-height: 1.75;
+    margin-bottom: 2.6rem;
+    line-height: 1.8;
 }
 
 .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
