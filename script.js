@@ -36,6 +36,9 @@ const modalClose = document.querySelector('.modal-close');
 const vehicleModal = document.getElementById('vehicleModal');
 const vehicleModalClose = document.getElementById('vehicleModalClose');
 const vehicleModalImage = document.getElementById('vehicleModalImage');
+const vehicleModalThumbs = document.getElementById('vehicleModalThumbs');
+const vehicleModalPrev = document.getElementById('vehicleModalPrev');
+const vehicleModalNext = document.getElementById('vehicleModalNext');
 const vehicleModalTitle = document.getElementById('vehicleModalTitle');
 const vehicleModalSubtitle = document.getElementById('vehicleModalSubtitle');
 const vehicleModalSpecs = document.getElementById('vehicleModalSpecs');
@@ -59,12 +62,27 @@ const closeVehicleModal = () => {
     if (vehicleModal) vehicleModal.classList.remove('active');
 };
 
+let currentGallery = [];
+let currentGalleryIndex = 0;
+
+const setModalImage = (index) => {
+    if (!currentGallery.length || !vehicleModalImage) return;
+    const safeIndex = Math.max(0, Math.min(index, currentGallery.length - 1));
+    currentGalleryIndex = safeIndex;
+    vehicleModalImage.src = currentGallery[safeIndex];
+    if (vehicleModalThumbs) {
+        [...vehicleModalThumbs.querySelectorAll('button')].forEach((btn, idx) => {
+            btn.classList.toggle('active', idx === safeIndex);
+        });
+    }
+};
+
 const openVehicleModal = (vehicle = {}) => {
     if (!vehicleModal) return;
-    const gallery = Array.isArray(vehicle.gallery) ? vehicle.gallery : (vehicle.image ? [vehicle.image] : []);
-    const cover = gallery.find(Boolean) || '';
+    const gallery = Array.isArray(vehicle.gallery) ? vehicle.gallery.filter(Boolean) : (vehicle.image ? [vehicle.image] : []);
+    currentGallery = gallery.length ? gallery : [''];
+    currentGalleryIndex = 0;
 
-    if (vehicleModalImage) vehicleModalImage.src = cover;
     if (vehicleModalTitle) vehicleModalTitle.textContent = vehicle.title || 'Veicolo Codecar';
     if (vehicleModalSubtitle) vehicleModalSubtitle.textContent = vehicle.subtitle || '';
 
@@ -88,6 +106,19 @@ const openVehicleModal = (vehicle = {}) => {
         }
     }
 
+    if (vehicleModalThumbs) {
+        vehicleModalThumbs.innerHTML = '';
+        currentGallery.forEach((imgUrl, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'thumb-btn';
+            btn.innerHTML = `<img src="${imgUrl}" alt="Anteprima ${idx + 1}">`;
+            btn.addEventListener('click', () => setModalImage(idx));
+            vehicleModalThumbs.appendChild(btn);
+        });
+    }
+
+    setModalImage(0);
     vehicleModal.classList.add('active');
 };
 
@@ -141,6 +172,13 @@ window.addEventListener('click', (e) => {
     if (e.target === vehicleModal) {
         closeVehicleModal();
     }
+});
+
+if (vehicleModalPrev) vehicleModalPrev.addEventListener('click', () => {
+    if (currentGallery.length > 1) setModalImage(currentGalleryIndex - 1);
+});
+if (vehicleModalNext) vehicleModalNext.addEventListener('click', () => {
+    if (currentGallery.length > 1) setModalImage(currentGalleryIndex + 1);
 });
 
 // ===== AUTOSCOUT24 VEHICLES (DYNAMIC) =====
@@ -303,7 +341,7 @@ const renderVehicles = (list) => {
                 <img data-src="${vehicle.image}" alt="${vehicle.title}">
                 <div class="vehicle-badge ${badge.className}">${badge.text}</div>
                 <div class="vehicle-overlay">
-                    <button class="btn-overlay">Scopri di più</button>
+                    <button class="btn-overlay">Vedi annuncio</button>
                 </div>
             </div>
             <div class="vehicle-info">

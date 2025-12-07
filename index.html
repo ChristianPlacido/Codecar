@@ -43,23 +43,6 @@
         <div class="hero-content">
             <div class="hero-brand">
                 <img src="logo-codecar-original.png" alt="Codecar di Seregno" class="hero-logo-main" loading="eager">
-                <div class="logo-splash">
-                    <div class="logo-trail"></div>
-                    <div class="logo-reveal">Codecar di Seregno</div>
-                </div>
-            </div>
-            <h1 class="hero-title">La tua prossima auto, adesso</h1>
-            <p class="hero-subtitle">Scopri selezioni curate di veicoli nuovi e usati certificati, con servizi premium Codecar di Seregno.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" id="exploreCars">Esplora Veicoli</button>
-                <button class="btn btn-secondary" id="contactUs">Contattaci</button>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="hero-drive" aria-hidden="true">
-                <div class="hero-car-glow"></div>
-                <div class="hero-car-icon">🚗</div>
-                <img class="hero-logo-dynamic" src="logo-codecar-original.png" alt="Codecar Seregno" loading="lazy">
             </div>
         </div>
         <div class="hero-background">
@@ -385,7 +368,12 @@
             <button class="modal-close" id="vehicleModalClose">&times;</button>
             <div class="vehicle-modal-body">
                 <div class="vehicle-modal-media">
-                    <img id="vehicleModalImage" alt="Veicolo Codecar">
+                    <div class="vehicle-modal-main">
+                        <button class="gallery-nav prev" id="vehicleModalPrev" aria-label="Foto precedente">‹</button>
+                        <img id="vehicleModalImage" alt="Veicolo Codecar">
+                        <button class="gallery-nav next" id="vehicleModalNext" aria-label="Foto successiva">›</button>
+                    </div>
+                    <div class="vehicle-modal-thumbs" id="vehicleModalThumbs"></div>
                 </div>
                 <div class="vehicle-modal-info">
                     <div class="vehicle-modal-header">
