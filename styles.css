@@ -216,13 +216,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
     position: relative;
     overflow: hidden;
     padding: 3rem 1.5rem 4rem;
-    background: url('hero-codecar.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #000 url('hero-codecar.jpg') center/cover no-repeat;
 }
 
-.hero-background { position: absolute; inset: 0; pointer-events: none; }
+.hero-background { position: absolute; inset: 0; pointer-events: none; display: none; }
 
 .gradient-blur {
     position: absolute;
