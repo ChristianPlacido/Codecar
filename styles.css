@@ -42,6 +42,11 @@ img { max-width: 100%; display: block; }
 
 button { font: inherit; }
 
+input, textarea, select {
+    font-family: var(--font-base);
+    font-size: 1rem;
+}
+
 h1, h2, h3, h4 { font-family: var(--font-display); }
 
 .page-container {
@@ -76,7 +81,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 }
 
 .navbar-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 1.5rem;
     height: 70px;
