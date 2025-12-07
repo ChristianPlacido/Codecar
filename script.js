@@ -102,6 +102,34 @@ if (exploreCarsAbout) exploreCarsAbout.addEventListener('click', () => {
 if (contactUs) contactUs.addEventListener('click', () => {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 });
+
+// smooth scroll for internal nav links
+document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// make any element with data-href scroll to its target (cards, buttons)
+document.querySelectorAll('[data-href]').forEach(el => {
+    const href = el.getAttribute('data-href');
+    if (!href) return;
+    const go = () => {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+    };
+    el.addEventListener('click', go);
+    el.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            go();
+        }
+    });
+});
 if (modalClose) modalClose.addEventListener('click', closeModal);
 if (vehicleModalClose) vehicleModalClose.addEventListener('click', closeVehicleModal);
 
