@@ -216,7 +216,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
     position: relative;
     overflow: hidden;
     padding: 3rem 1.5rem 4rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 245, 234, 0.88) 55%, rgba(243, 237, 220, 0.82) 100%), url('hero-codecar.jpg');
+    background: url('hero-codecar.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
