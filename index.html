@@ -19,7 +19,7 @@
         <div class="navbar-container">
             <a class="nav-logo" href="#home" aria-label="Torna alla home">
                 <picture>
-                    <img src="codecar.jpg" alt="Logo Codecar Seregno" style="height:46px;vertical-align:middle;margin-right:10px;">
+                    <img src="codecar.jpg" alt="Logo Codecar Seregno" style="height:46px;vertical-align:middle;">
                 </picture>
             </a>
             <div class="hamburger" id="hamburger">
@@ -376,24 +376,38 @@
         <div class="modal-content vehicle-modal">
             <button class="modal-close" id="vehicleModalClose">&times;</button>
             <div class="vehicle-modal-body">
-                <div class="vehicle-modal-media">
+                <div class="vehicle-modal-left">
                     <div class="vehicle-modal-main">
                         <button class="gallery-nav prev" id="vehicleModalPrev" aria-label="Foto precedente">‹</button>
                         <img id="vehicleModalImage" alt="Veicolo Codecar">
                         <button class="gallery-nav next" id="vehicleModalNext" aria-label="Foto successiva">›</button>
+                        <div class="vehicle-modal-price-pill" id="vehicleModalPricePill"></div>
                     </div>
                     <div class="vehicle-modal-thumbs" id="vehicleModalThumbs"></div>
+                    <div class="vehicle-modal-specs" id="vehicleModalSpecs"></div>
+                    <div class="vehicle-modal-options">
+                        <h3>Optional</h3>
+                        <div class="options-grid" id="vehicleModalOptions"></div>
+                    </div>
                 </div>
-                <div class="vehicle-modal-info">
+                <div class="vehicle-modal-right">
                     <div class="vehicle-modal-header">
                         <h2 id="vehicleModalTitle"></h2>
                         <p id="vehicleModalSubtitle"></p>
                     </div>
-                    <div class="vehicle-modal-specs" id="vehicleModalSpecs"></div>
                     <div class="vehicle-modal-price">
                         <span id="vehicleModalPrice"></span>
-                        <a class="btn btn-primary" id="vehicleModalCta" target="_blank" rel="noopener">Vedi su AutoScout24</a>
+                        <a class="btn btn-primary" id="vehicleModalCta" target="_blank" rel="noopener">Vedi annuncio</a>
                     </div>
+                    <form class="contact-panel">
+                        <p class="contact-panel-title">Sono interessato a questo veicolo</p>
+                        <input type="text" placeholder="Nome e cognome" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="tel" placeholder="Telefono" required>
+                        <textarea rows="3" placeholder="Vorrei più informazioni" required></textarea>
+                        <label class="consent"><input type="checkbox" required> Autorizzo il trattamento dei dati personali</label>
+                        <button type="submit" class="btn btn-primary">Invia</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -158,15 +158,49 @@ const openVehicleModal = (vehicle = {}) => {
     if (vehicleModalSubtitle) vehicleModalSubtitle.textContent = vehicle.subtitle || '';
 
     if (vehicleModalSpecs) {
-        const specs = [];
-        if (vehicle.fuel) specs.push(`Carburante: ${vehicle.fuel}`);
-        if (vehicle.power) specs.push(`Potenza: ${vehicle.power}`);
-        if (vehicle.km) specs.push(`Chilometraggio: ${vehicle.km}`);
-        if (vehicle.year) specs.push(`Anno: ${vehicle.year}`);
-        vehicleModalSpecs.innerHTML = specs.map(s => `<span class="spec-chip">${s}</span>`).join('');
+        const specRows = [
+            { label: 'Marca', value: vehicle.make || vehicle.title?.split(' ')?.[0] || '—' },
+            { label: 'Modello', value: vehicle.model || (vehicle.title ? vehicle.title.split(' ').slice(1).join(' ') : '') || vehicle.subtitle || '—' },
+            { label: 'Carrozzeria', value: vehicle.body || vehicle.subtitle || '—' },
+            { label: 'Immatricolazione', value: vehicle.year || '—' },
+            { label: 'Chilometri', value: vehicle.km || '—' },
+            { label: 'Carburante', value: vehicle.fuel || '—' },
+            { label: 'Potenza', value: vehicle.power || '—' },
+            { label: 'Cambio', value: vehicle.transmission || '—' },
+            { label: 'Colore', value: vehicle.color || '—' }
+        ];
+        vehicleModalSpecs.innerHTML = specRows.map(row => `
+            <div class="spec-row">
+                <span class="spec-row-label">${row.label}</span>
+                <span class="spec-row-value">${row.value || '—'}</span>
+            </div>
+        `).join('');
     }
 
     if (vehicleModalPrice) vehicleModalPrice.textContent = formatPrice(vehicle.price);
+    const pricePill = document.getElementById('vehicleModalPricePill');
+    if (pricePill) pricePill.textContent = formatPrice(vehicle.price);
+
+    const optionsList = Array.isArray(vehicle.options) ? vehicle.options.filter(Boolean) : [];
+    const optionsContainer = document.getElementById('vehicleModalOptions');
+    if (optionsContainer) {
+        optionsContainer.innerHTML = '';
+        if (optionsList.length) {
+            optionsList.forEach((opt, idx) => {
+                const item = document.createElement('div');
+                item.className = 'option-item fade-in';
+                item.textContent = opt;
+                item.style.animationDelay = `${Math.min(idx * 60, 900)}ms`;
+                optionsContainer.appendChild(item);
+                if (fadeObserver) fadeObserver.observe(item);
+            });
+        } else {
+            const empty = document.createElement('div');
+            empty.className = 'option-item empty';
+            empty.textContent = 'Optional non disponibili';
+            optionsContainer.appendChild(empty);
+        }
+    }
 
     if (vehicleModalCta) {
         if (vehicle.link) {
@@ -271,7 +305,8 @@ const sampleVehicles = [
         km: '12.300 km',
         year: '2022',
         image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=800&auto=format&fit=crop',
-        tags: ['used', 'citycar']
+        tags: ['used', 'citycar'],
+        options: ['Climatizzatore', 'Cruise control', 'Bluetooth', 'Sensori parcheggio', 'Cerchi in lega']
     },
     {
         title: 'Jeep Renegade 1.6 Mjt',
@@ -282,7 +317,8 @@ const sampleVehicles = [
         km: '24.000 km',
         year: '2021',
         image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=900&auto=format&fit=crop',
-        tags: ['used', 'suv']
+        tags: ['used', 'suv'],
+        options: ['Navigatore', 'Fari full LED', 'Telecamera posteriore', 'Frenata automatica', 'Sedili riscaldati']
     },
     {
         title: 'Toyota Yaris Cross',
@@ -293,7 +329,8 @@ const sampleVehicles = [
         km: 'KM0',
         year: '2024',
         image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&auto=format&fit=crop',
-        tags: ['new', 'suv']
+        tags: ['new', 'suv'],
+        options: ['Apple CarPlay / Android Auto', 'Sensori luci/pioggia', 'Lane assist', 'Ricarica wireless', 'Cerchi 18"']
     },
     {
         title: 'Audi A3 Sportback',
@@ -304,7 +341,8 @@ const sampleVehicles = [
         km: '8.500 km',
         year: '2023',
         image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=950&auto=format&fit=crop',
-        tags: ['used', 'sedan']
+        tags: ['used', 'sedan'],
+        options: ['Virtual cockpit', 'Adaptive cruise', 'Bang & Olufsen audio', 'Sedili sportivi', 'Keyless']
     }
 ];
 
@@ -345,17 +383,31 @@ const mapAutoscoutListing = (listing = {}) => {
     const subtitleParts = [body || null, year || null, mileage || null].filter(Boolean);
     const subtitle = subtitleParts.join(' • ');
     const link = listing.url ? `https://www.autoscout24.it${listing.url}` : '';
-    const title = `${vehicle.make || ''} ${vehicle.model || ''} ${vehicle.modelVersionInput || vehicle.modelVersion || ''}`.replace(/\s+/g, ' ').trim();
+    const make = vehicle.make || '';
+    const model = vehicle.model || '';
+    const version = vehicle.modelVersionInput || vehicle.modelVersion || '';
+    const title = `${make} ${model} ${version}`.replace(/\s+/g, ' ').trim();
+
+    const options = listing.features
+        || listing.equipment
+        || listing.equipments
+        || listing.vehicle?.equipmentList
+        || listing.vehicle?.equipments
+        || [];
 
     return {
         id: listing.id?.toString() || listing.listingId?.toString() || title,
         title: title || 'Veicolo Codecar',
+        make,
+        model,
         subtitle,
         price,
         fuel,
         power,
         km: mileage,
         year: year || '',
+        body,
+        options,
         image: primaryImage,
         gallery,
         tags,
@@ -407,43 +459,50 @@ const renderVehicles = (list) => {
         card.className = 'vehicle-card';
         card.dataset.category = (vehicle.tags || []).join(' ');
 
+        const specs = [
+            { label: 'Chilometri', value: vehicle.km || '—' },
+            { label: 'Anno', value: vehicle.year || '—' },
+            { label: 'Carburante', value: vehicle.fuel || '—' },
+            { label: 'Potenza', value: vehicle.power || '—' },
+            { label: 'Carrozzeria', value: vehicle.body || vehicle.subtitle || '—' }
+        ];
+
+        const galleryCount = Array.isArray(vehicle.gallery) ? vehicle.gallery.length : (vehicle.image ? 1 : 0);
+
         card.innerHTML = `
-            <div class="vehicle-image">
-                <img data-src="${vehicle.image}" alt="${vehicle.title}" loading="lazy" decoding="async">
-                <div class="vehicle-badge ${badge.className}">${badge.text}</div>
-                <div class="vehicle-overlay">
-                    <button class="btn-overlay">Vedi annuncio</button>
+            <div class="vehicle-thumb">
+                <div class="vehicle-thumb-media">
+                    <img data-src="${vehicle.image}" alt="${vehicle.title}" loading="lazy" decoding="async">
+                    <div class="vehicle-badge ${badge.className}">${badge.text}</div>
+                    ${galleryCount > 1 ? `<div class="vehicle-counter">${galleryCount} foto</div>` : ''}
                 </div>
             </div>
-            <div class="vehicle-info">
-                <h3>${vehicle.title}</h3>
-                <p class="vehicle-type">${vehicle.subtitle || ''}</p>
-                <div class="vehicle-specs">
-                    <span class="spec">⛽ ${vehicle.fuel || ''}</span>
-                    <span class="spec">⚡ ${vehicle.power || ''}</span>
-                    <span class="spec">🛣️ ${vehicle.km || ''}</span>
+            <div class="vehicle-main">
+                <div class="vehicle-header">
+                    <h3>${vehicle.title}</h3>
+                    <p class="vehicle-type">${vehicle.subtitle || ''}</p>
                 </div>
-                <div class="vehicle-price">
-                    <span class="price">${formatPrice(vehicle.price)}</span>
-                    <button class="btn-compare">Confronta</button>
+                <div class="vehicle-spec-grid">
+                    ${specs.map(spec => `
+                        <div class="spec-row">
+                            <span class="spec-row-label">${spec.label}</span>
+                            <span class="spec-row-value">${spec.value}</span>
+                        </div>
+                    `).join('')}
                 </div>
+            </div>
+            <div class="vehicle-price-block">
+                <span class="price">${formatPrice(vehicle.price)}</span>
+                ${vehicle.link ? `<a class="btn btn-primary btn-view" href="${vehicle.link}" target="_blank" rel="noopener">Vedi annuncio</a>` : `<button class="btn btn-secondary btn-view" disabled>Annuncio non disponibile</button>`}
             </div>
         `;
 
         vehiclesGrid.appendChild(card);
 
-        const overlayBtn = card.querySelector('.btn-overlay');
-        if (overlayBtn) {
-            overlayBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                openVehicleModal(vehicle);
-            });
-        }
-
-        const imageWrapper = card.querySelector('.vehicle-image');
-        if (imageWrapper) {
-            imageWrapper.addEventListener('click', () => openVehicleModal(vehicle));
-        }
+        card.addEventListener('click', (e) => {
+            const isButton = e.target.closest('a,button');
+            if (!isButton) openVehicleModal(vehicle);
+        });
 
         if (fadeObserver) {
             card.classList.add('fade-in');
@@ -458,26 +517,21 @@ const renderVehicles = (list) => {
 };
 
 const attachVehicleInteractions = () => {
-    const compareButtons = vehiclesGrid.querySelectorAll('.btn-compare');
-    compareButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            btn.textContent = 'Aggiunto ✓';
-            btn.style.background = '#4ecdc4';
-            setTimeout(() => {
-                btn.textContent = 'Confronta';
-                btn.style.background = '';
-            }, 2000);
+    const cards = vehiclesGrid.querySelectorAll('.vehicle-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const relX = (e.clientX - rect.left) / rect.width - 0.5;
+            const relY = (e.clientY - rect.top) / rect.height - 0.5;
+            const tiltX = (relX * 6).toFixed(2);
+            const tiltY = (-relY * 6).toFixed(2);
+            card.style.setProperty('--tilt-x', `${tiltX}deg`);
+            card.style.setProperty('--tilt-y', `${tiltY}deg`);
         });
-    });
 
-    const overlays = vehiclesGrid.querySelectorAll('.vehicle-overlay');
-    overlays.forEach(overlay => {
-        overlay.addEventListener('mouseenter', () => {
-            overlay.parentElement.parentElement.style.transform = 'scale(1.02)';
-        });
-        overlay.addEventListener('mouseleave', () => {
-            overlay.parentElement.parentElement.style.transform = '';
+        card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--tilt-x', '0deg');
+            card.style.setProperty('--tilt-y', '0deg');
         });
     });
 };
@@ -587,21 +641,6 @@ if (modalForm) {
     });
 }
 
-// ===== BUTTON HOVER EFFECTS =====
-const compareButtons = document.querySelectorAll('.btn-compare');
-compareButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Add to comparison (could be expanded with real functionality)
-        btn.textContent = 'Aggiunto ✓';
-        btn.style.background = '#4ecdc4';
-        setTimeout(() => {
-            btn.textContent = 'Confronta';
-            btn.style.background = '';
-        }, 2000);
-    });
-});
-
 // ===== MOUSE FOLLOW EFFECT ON HERO =====
 const hero = document.querySelector('.hero');
 const gradientBlur = document.querySelector('.gradient-blur');
@@ -629,18 +668,6 @@ window.addEventListener('scroll', () => {
     if (heroBackground) {
         heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
     }
-});
-
-// ===== VEHICLE CARD INTERACTIONS =====
-const vehicleOverlays = document.querySelectorAll('.vehicle-overlay');
-vehicleOverlays.forEach(overlay => {
-    overlay.addEventListener('mouseenter', () => {
-        overlay.parentElement.parentElement.style.transform = 'scale(1.02)';
-    });
-    
-    overlay.addEventListener('mouseleave', () => {
-        overlay.parentElement.parentElement.style.transform = '';
-    });
 });
 
 // ===== ACTIVE NAVIGATION LINK =====
