@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rossi Auto - Concessionaria automobili premium. Scopri la nostra gamma di veicoli nuovi e usati con servizi esclusivi">
+    <title>Rossi Auto - Concessionaria Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🏁</span>
+                <span class="logo-text">ROSSI AUTO</span>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#vehicles" class="nav-link">Veicoli</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Servizi</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">Chi Siamo</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contatti</a></li>
+                <li class="nav-item"><button class="cta-btn" id="ctaBtn">Prenota Test Drive</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">La Tua Prossima Macchina Perfetta</h1>
+            <p class="hero-subtitle">Scopri la nostra esclusiva gamma di veicoli nuovi e usati certificati</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="exploreCars">Esplora Veicoli</button>
+                <button class="btn btn-secondary" id="contactUs">Contattaci</button>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="gradient-blur"></div>
+        </div>
+    </section>
+
+    <!-- Featured Vehicles -->
+    <section id="vehicles" class="vehicles-section">
+        <div class="section-header">
+            <h2>I Nostri Veicoli in Evidenza</h2>
+            <p>Selezionati per te tra i migliori del mercato</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tutti</button>
+            <button class="filter-btn" data-filter="new">Nuovi</button>
+            <button class="filter-btn" data-filter="used">Usati</button>
+            <button class="filter-btn" data-filter="suv">SUV</button>
+            <button class="filter-btn" data-filter="sedan">Sedan</button>
+        </div>
+
+        <div class="vehicles-grid" id="vehiclesGrid">
+            <!-- Auto 1 -->
+            <div class="vehicle-card" data-category="new suv">
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="BMW X7">
+                    <div class="vehicle-badge">Nuovo</div>
+                    <div class="vehicle-overlay">
+                        <button class="btn-overlay">Scopri di più</button>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <h3>BMW X7 M50i</h3>
+                    <p class="vehicle-type">SUV Lusso 7 Posti</p>
+                    <div class="vehicle-specs">
+                        <span class="spec">🔋 3.0L Turbo</span>
+                        <span class="spec">⚡ 523 CV</span>
+                        <span class="spec">🛣️ 0-100 in 4.6s</span>
+                    </div>
+                    <div class="vehicle-price">
+                        <span class="price">€92.500</span>
+                        <button class="btn-compare">Confronta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto 2 -->
+            <div class="vehicle-card" data-category="new sedan">
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=300&fit=crop" alt="Mercedes-Benz C-Class">
+                    <div class="vehicle-badge">Nuovo</div>
+                    <div class="vehicle-overlay">
+                        <button class="btn-overlay">Scopri di più</button>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <h3>Mercedes-Benz C-Class</h3>
+                    <p class="vehicle-type">Berlina Premium</p>
+                    <div class="vehicle-specs">
+                        <span class="spec">🔋 2.0L Turbo</span>
+                        <span class="spec">⚡ 258 CV</span>
+                        <span class="spec">🛣️ 0-100 in 6.3s</span>
+                    </div>
+                    <div class="vehicle-price">
+                        <span class="price">€48.900</span>
+                        <button class="btn-compare">Confronta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto 3 -->
+            <div class="vehicle-card" data-category="used suv">
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="Audi Q5">
+                    <div class="vehicle-badge used-badge">Usato</div>
+                    <div class="vehicle-overlay">
+                        <button class="btn-overlay">Scopri di più</button>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <h3>Audi Q5 45 TFSI</h3>
+                    <p class="vehicle-type">SUV Sportivo - 2023</p>
+                    <div class="vehicle-specs">
+                        <span class="spec">🔋 2.0L Turbo</span>
+                        <span class="spec">⚡ 265 CV</span>
+                        <span class="spec">🛣️ 0-100 in 6.0s</span>
+                    </div>
+                    <div class="vehicle-price">
+                        <span class="price">€55.800</span>
+                        <button class="btn-compare">Confronta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto 4 -->
+            <div class="vehicle-card" data-category="new sedan">
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=300&fit=crop" alt="Alfa Romeo Giulia">
+                    <div class="vehicle-badge">Nuovo</div>
+                    <div class="vehicle-overlay">
+                        <button class="btn-overlay">Scopri di più</button>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <h3>Alfa Romeo Giulia</h3>
+                    <p class="vehicle-type">Berlina Sportiva Italiana</p>
+                    <div class="vehicle-specs">
+                        <span class="spec">🔋 2.2L Diesel</span>
+                        <span class="spec">⚡ 210 CV</span>
+                        <span class="spec">🛣️ 0-100 in 7.2s</span>
+                    </div>
+                    <div class="vehicle-price">
+                        <span class="price">€42.500</span>
+                        <button class="btn-compare">Confronta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto 5 -->
+            <div class="vehicle-card" data-category="used suv">
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="Range Rover Sport">
+                    <div class="vehicle-badge used-badge">Usato</div>
+                    <div class="vehicle-overlay">
+                        <button class="btn-overlay">Scopri di più</button>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <h3>Range Rover Sport P400</h3>
+                    <p class="vehicle-type">SUV Premium - 2022</p>
+                    <div class="vehicle-specs">
+                        <span class="spec">🔋 3.0L Turbo</span>
+                        <span class="spec">⚡ 400 CV</span>
+                        <span class="spec">🛣️ 0-100 in 5.8s</span>
+                    </div>
+                    <div class="vehicle-price">
+                        <span class="price">€68.900</span>
+                        <button class="btn-compare">Confronta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto 6 -->
+            <div class="vehicle-card" data-category="new suv">
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="Porsche Cayenne">
+                    <div class="vehicle-badge">Nuovo</div>
+                    <div class="vehicle-overlay">
+                        <button class="btn-overlay">Scopri di più</button>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <h3>Porsche Cayenne S</h3>
+                    <p class="vehicle-type">SUV Sportivo Premium</p>
+                    <div class="vehicle-specs">
+                        <span class="spec">🔋 2.9L Turbo</span>
+                        <span class="spec">⚡ 440 CV</span>
+                        <span class="spec">🛣️ 0-100 in 5.2s</span>
+                    </div>
+                    <div class="vehicle-price">
+                        <span class="price">€98.500</span>
+                        <button class="btn-compare">Confronta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="section-header">
+            <h2>I Nostri Servizi</h2>
+            <p>Tutto ciò di cui hai bisogno per la tua auto</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3>Test Drive</h3>
+                <p>Prova il brivido di guidare il tuo veicolo preferito con un test drive personalizzato</p>
+                <a href="#" class="service-link">Prenota ora →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💰</div>
+                <h3>Finanziamenti</h3>
+                <p>Piani di finanziamento flessibili con i migliori tassi del mercato</p>
+                <a href="#" class="service-link">Scopri i piani →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Manutenzione</h3>
+                <p>Servizi di manutenzione e riparazioni con personale qualificato</p>
+                <a href="#" class="service-link">Prenota service →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Assicurazioni</h3>
+                <p>Pacchetti assicurativi completi con le migliori compagnie partner</p>
+                <a href="#" class="service-link">Chiedi un preventivo →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔄</div>
+                <h3>Permuta</h3>
+                <p>Valutazione e ritiro della tua vecchia auto con migliore quotazione</p>
+                <a href="#" class="service-link">Valuta la tua auto →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Support 24/7</h3>
+                <p>Assistenza clienti sempre disponibile per le tue esigenze</p>
+                <a href="#" class="service-link">Contatta il supporto →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="why-us">
+        <div class="why-us-content">
+            <h2>Perché Sceglierci</h2>
+            <ul class="features-list">
+                <li class="feature-item">✨ Veicoli certificati e garantiti fino a 7 anni</li>
+                <li class="feature-item">🎯 Team esperto e professionale</li>
+                <li class="feature-item">💎 Trasparenza totale sui prezzi</li>
+                <li class="feature-item">🚚 Consegna e ritiro gratuiti</li>
+                <li class="feature-item">📋 Documentazione completa fornita</li>
+                <li class="feature-item">⭐ Oltre 500 clienti soddisfatti</li>
+            </ul>
+        </div>
+        <div class="why-us-stats">
+            <div class="stat">
+                <h3>500+</h3>
+                <p>Clienti Felici</p>
+            </div>
+            <div class="stat">
+                <h3>25+</h3>
+                <p>Anni di Esperienza</p>
+            </div>
+            <div class="stat">
+                <h3>1000+</h3>
+                <p>Auto Vendute</p>
+            </div>
+            <div class="stat">
+                <h3>98%</h3>
+                <p>Soddisfazione Cliente</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h2>Chi Siamo</h2>
+            <p>Rossi Auto è una concessionaria leader nel settore automobilistico con oltre 25 anni di esperienza. Siamo dedicati a fornire i migliori veicoli e servizi ai nostri clienti, con un impegno costante verso l'eccellenza e la trasparenza.</p>
+            <p>La nostra missione è rendere l'esperienza di acquisto di un'auto semplice, piacevole e trasparente, offrendo una vasta gamma di veicoli nuovi e usati, servizi di finanziamento flessibili e un supporto post-vendita eccezionale.</p>
+            <div class="about-buttons">
+                <button class="btn btn-primary">Leggi la nostra storia</button>
+                <button class="btn btn-secondary">Visita la nostra sede</button>
+            </div>
+        </div>
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1566023967268-de0b92b10f0b?w=500&h=400&fit=crop" alt="Concessionaria">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <h2>Contattaci</h2>
+            <p>Siamo sempre disponibili per rispondere alle tue domande</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3>Indirizzo</h3>
+                    <p>Via Roma 123<br>00100 Roma, Italia</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <h3>Telefono</h3>
+                    <p>+39 06 1234 5678<br>+39 320 123 4567</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>info@rossiato.it<br>vendite@rossiato.it</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">🕒</div>
+                    <h3>Orari</h3>
+                    <p>Lun-Ven: 09:00 - 19:00<br>Sab: 10:00 - 18:00</p>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Il tuo nome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="La tua email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Il tuo telefono" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Scrivi il tuo messaggio..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Invia Messaggio</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ROSSI AUTO</h3>
+                <p>La concessionaria che si prende cura di te</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">@</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Link Utili</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#vehicles">Veicoli</a></li>
+                    <li><a href="#services">Servizi</a></li>
+                    <li><a href="#about">Chi Siamo</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Servizi</h4>
+                <ul>
+                    <li><a href="#">Test Drive</a></li>
+                    <li><a href="#">Finanziamenti</a></li>
+                    <li><a href="#">Manutenzione</a></li>
+                    <li><a href="#">Assicurazioni</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contatti</h4>
+                <p>📞 +39 06 1234 5678<br>✉️ info@rossiato.it</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Rossi Auto. Tutti i diritti riservati.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Termini di Servizio</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Test Drive -->
+    <div class="modal" id="testDriveModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Prenota il Tuo Test Drive</h2>
+            <form class="modal-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Nome completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Telefono" required>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="">Seleziona un veicolo</option>
+                        <option value="bmw">BMW X7 M50i</option>
+                        <option value="mercedes">Mercedes-Benz C-Class</option>
+                        <option value="audi">Audi Q5 45 TFSI</option>
+                        <option value="alfa">Alfa Romeo Giulia</option>
+                        <option value="range">Range Rover Sport</option>
+                        <option value="porsche">Porsche Cayenne S</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="date" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Conferma Prenotazione</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
