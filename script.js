@@ -58,37 +58,194 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// ===== FILTER VEHICLES =====
+// ===== AUTOSCOUT24 VEHICLES (DYNAMIC) =====
+const vehiclesGrid = document.getElementById('vehiclesGrid');
+const vehiclesStatus = document.getElementById('vehiclesStatus');
 const filterBtns = document.querySelectorAll('.filter-btn');
-const vehicleCards = document.querySelectorAll('.vehicle-card');
+let allVehicles = [];
+let fadeObserver;
+let imageObserver;
+const autoscoutLinkEl = document.getElementById('autoscoutLink');
+
+const sampleVehicles = [
+    {
+        title: 'Fiat 500 1.0 Hybrid',
+        subtitle: 'Citycar 2022 • 12.300 km',
+        price: 13490,
+        fuel: 'Benzina/Hybrid',
+        power: '70 CV',
+        km: '12.300 km',
+        year: '2022',
+        image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=800&auto=format&fit=crop',
+        tags: ['used', 'citycar']
+    },
+    {
+        title: 'Jeep Renegade 1.6 Mjt',
+        subtitle: 'SUV 2021 • 24.000 km',
+        price: 20900,
+        fuel: 'Diesel',
+        power: '130 CV',
+        km: '24.000 km',
+        year: '2021',
+        image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=900&auto=format&fit=crop',
+        tags: ['used', 'suv']
+    },
+    {
+        title: 'Toyota Yaris Cross',
+        subtitle: 'Hybrid 2024 • KM0',
+        price: 27900,
+        fuel: 'Hybrid',
+        power: '116 CV',
+        km: 'KM0',
+        year: '2024',
+        image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&auto=format&fit=crop',
+        tags: ['new', 'suv']
+    },
+    {
+        title: 'Audi A3 Sportback',
+        subtitle: '1.5 TFSI 2023 • 8.500 km',
+        price: 32900,
+        fuel: 'Benzina',
+        power: '150 CV',
+        km: '8.500 km',
+        year: '2023',
+        image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=950&auto=format&fit=crop',
+        tags: ['used', 'sedan']
+    }
+];
+
+const formatPrice = (value) => {
+    if (!value && value !== 0) return 'Prezzo su richiesta';
+    return `€${Number(value).toLocaleString('it-IT')}`;
+};
+
+const badgeForTags = (tags = []) => {
+    if (tags.includes('new')) return { text: 'Nuovo', className: '' };
+    if (tags.includes('km0')) return { text: 'KM0', className: '' };
+    return { text: 'Usato', className: 'used-badge' };
+};
+
+const renderVehicles = (list) => {
+    if (!vehiclesGrid) return;
+    vehiclesGrid.innerHTML = '';
+
+    list.forEach(vehicle => {
+        const badge = badgeForTags(vehicle.tags);
+        const card = document.createElement('div');
+        card.className = 'vehicle-card';
+        card.dataset.category = (vehicle.tags || []).join(' ');
+
+        card.innerHTML = `
+            <div class="vehicle-image">
+                <img data-src="${vehicle.image}" alt="${vehicle.title}">
+                <div class="vehicle-badge ${badge.className}">${badge.text}</div>
+                <div class="vehicle-overlay">
+                    <button class="btn-overlay">Scopri di più</button>
+                </div>
+            </div>
+            <div class="vehicle-info">
+                <h3>${vehicle.title}</h3>
+                <p class="vehicle-type">${vehicle.subtitle || ''}</p>
+                <div class="vehicle-specs">
+                    <span class="spec">⛽ ${vehicle.fuel || ''}</span>
+                    <span class="spec">⚡ ${vehicle.power || ''}</span>
+                    <span class="spec">🛣️ ${vehicle.km || ''}</span>
+                </div>
+                <div class="vehicle-price">
+                    <span class="price">${formatPrice(vehicle.price)}</span>
+                    <button class="btn-compare">Confronta</button>
+                </div>
+            </div>
+        `;
+
+        vehiclesGrid.appendChild(card);
+
+        if (fadeObserver) {
+            card.classList.add('fade-in');
+            fadeObserver.observe(card);
+        }
+
+        const img = card.querySelector('img');
+        if (imageObserver && img) imageObserver.observe(img);
+    });
+
+    attachVehicleInteractions();
+};
+
+const attachVehicleInteractions = () => {
+    const compareButtons = vehiclesGrid.querySelectorAll('.btn-compare');
+    compareButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            btn.textContent = 'Aggiunto ✓';
+            btn.style.background = '#4ecdc4';
+            setTimeout(() => {
+                btn.textContent = 'Confronta';
+                btn.style.background = '';
+            }, 2000);
+        });
+    });
+
+    const overlays = vehiclesGrid.querySelectorAll('.vehicle-overlay');
+    overlays.forEach(overlay => {
+        overlay.addEventListener('mouseenter', () => {
+            overlay.parentElement.parentElement.style.transform = 'scale(1.02)';
+        });
+        overlay.addEventListener('mouseleave', () => {
+            overlay.parentElement.parentElement.style.transform = '';
+        });
+    });
+};
+
+const applyFilter = (filterValue) => {
+    if (!allVehicles.length) return;
+    const filtered = filterValue === 'all' ? allVehicles : allVehicles.filter(v => (v.tags || []).includes(filterValue));
+    renderVehicles(filtered);
+};
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Remove active class from all buttons
         filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
         btn.classList.add('active');
-
         const filterValue = btn.getAttribute('data-filter');
-
-        // Filter vehicles
-        vehicleCards.forEach(card => {
-            if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
-                card.style.display = 'block';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 10);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
-            }
-        });
+        applyFilter(filterValue);
     });
 });
+
+const loadVehicles = async () => {
+    if (!vehiclesGrid) return;
+    const feedUrl = vehiclesGrid.dataset.feedUrl;
+    const autoscoutUrl = vehiclesGrid.dataset.autoscoutUrl;
+    if (autoscoutLinkEl && autoscoutUrl) {
+        autoscoutLinkEl.href = autoscoutUrl;
+    }
+
+    const setStatus = (msg) => {
+        if (vehiclesStatus) vehiclesStatus.textContent = msg;
+    };
+
+    try {
+        setStatus('Caricamento veicoli da AutoScout24...');
+        if (feedUrl) {
+            const response = await fetch(feedUrl);
+            if (!response.ok) throw new Error('Feed non disponibile');
+            const data = await response.json();
+            // Atteso formato array di veicoli; adattare se necessario.
+            allVehicles = Array.isArray(data) ? data : (data.vehicles || []);
+            if (!allVehicles.length) throw new Error('Nessun veicolo nel feed');
+            setStatus(`${allVehicles.length} veicoli caricati dal feed.`);
+        } else {
+            allVehicles = sampleVehicles;
+            setStatus('Feed non configurato: mostriamo esempi. Imposta data-feed-url sul contenitore.');
+        }
+    } catch (err) {
+        console.error('AutoScout24 feed error:', err);
+        allVehicles = sampleVehicles;
+        setStatus('Feed non raggiungibile: mostriamo esempi.');
+    }
+
+    applyFilter('all');
+};
 
 // ===== SMOOTH SCROLL ANIMATION =====
 const observerOptions = {
@@ -96,19 +253,18 @@ const observerOptions = {
     rootMargin: '0px 0px -100px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            fadeObserver.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe all elements with fade-in class
-document.querySelectorAll('.vehicle-card, .service-card, .stat').forEach(el => {
+document.querySelectorAll('.service-card, .stat').forEach(el => {
     el.classList.add('fade-in');
-    observer.observe(el);
+    fadeObserver.observe(el);
 });
 
 // ===== FORM SUBMISSION =====
@@ -215,7 +371,7 @@ window.addEventListener('scroll', () => {
 
 // ===== LAZY LOAD IMAGES =====
 if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
+    imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
@@ -278,6 +434,7 @@ document.addEventListener('keydown', (e) => {
 // ===== LOADING ANIMATION =====
 window.addEventListener('load', () => {
     document.body.style.opacity = '1';
+    loadVehicles();
 });
 
 // ===== DYNAMIC FORM VALIDATION =====
@@ -308,4 +465,5 @@ specs.forEach(spec => {
     });
 });
 
-console.log('🚗 Rossi Auto - Sito Concessionaria Caricato!');
+console.log('🚗 Codecar di Seregno - sito caricato.');
+console.log('🚗 Veicoli: caricamento dinamico attivo.');

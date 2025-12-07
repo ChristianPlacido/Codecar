@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Fiat 500 1.0 Hybrid",
+    "subtitle": "Citycar 2022 • 12.300 km",
+    "price": 13490,
+    "fuel": "Benzina/Hybrid",
+    "power": "70 CV",
+    "km": "12.300 km",
+    "year": "2022",
+    "image": "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=900&auto=format&fit=crop",
+    "tags": ["used", "citycar"]
+  },
+  {
+    "title": "Jeep Renegade 1.6 Mjt",
+    "subtitle": "SUV 2021 • 24.000 km",
+    "price": 20900,
+    "fuel": "Diesel",
+    "power": "130 CV",
+    "km": "24.000 km",
+    "year": "2021",
+    "image": "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=1000&auto=format&fit=crop",
+    "tags": ["used", "suv"]
+  },
+  {
+    "title": "Toyota Yaris Cross",
+    "subtitle": "Hybrid 2024 • KM0",
+    "price": 27900,
+    "fuel": "Hybrid",
+    "power": "116 CV",
+    "km": "KM0",
+    "year": "2024",
+    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1100&auto=format&fit=crop",
+    "tags": ["new", "suv", "km0"]
+  },
+  {
+    "title": "Audi A3 Sportback",
+    "subtitle": "1.5 TFSI 2023 • 8.500 km",
+    "price": 32900,
+    "fuel": "Benzina",
+    "power": "150 CV",
+    "km": "8.500 km",
+    "year": "2023",
+    "image": "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=1150&auto=format&fit=crop",
+    "tags": ["used", "sedan"]
+  }
+]

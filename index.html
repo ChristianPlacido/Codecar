@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rossi Auto - Concessionaria automobili premium. Scopri la nostra gamma di veicoli nuovi e usati con servizi esclusivi">
-    <title>Rossi Auto - Concessionaria Premium</title>
+    <meta name="description" content="Codecar di Seregno - Concessionaria auto, veicoli nuovi e usati, servizi esclusivi, test drive e assistenza premium.">
+    <title>Codecar di Seregno - Concessionaria Auto</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,16 +15,14 @@
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
             <div class="nav-logo">
-                <span class="logo-icon">🏁</span>
-                <span class="logo-text">ROSSI AUTO</span>
+                <img src="logo-codecar.png" alt="Logo Codecar Seregno" style="height:40px;vertical-align:middle;margin-right:8px;">
+                <span class="logo-text">CODECAR DI SEREGNO</span>
             </div>
-            
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            
             <ul class="nav-menu" id="navMenu">
                 <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="#vehicles" class="nav-link">Veicoli</a></li>
@@ -39,8 +37,12 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">La Tua Prossima Macchina Perfetta</h1>
-            <p class="hero-subtitle">Scopri la nostra esclusiva gamma di veicoli nuovi e usati certificati</p>
+            <div class="logo-splash">
+                <div class="logo-trail"></div>
+                <div class="logo-reveal">CODECAR</div>
+            </div>
+            <h1 class="hero-title">La tua prossima auto, adesso</h1>
+            <p class="hero-subtitle">Scopri selezioni curate di veicoli nuovi e usati certificati, con servizi premium Codecar di Seregno.</p>
             <div class="hero-buttons">
                 <button class="btn btn-primary" id="exploreCars">Esplora Veicoli</button>
                 <button class="btn btn-secondary" id="contactUs">Contattaci</button>
@@ -54,8 +56,11 @@
     <!-- Featured Vehicles -->
     <section id="vehicles" class="vehicles-section">
         <div class="section-header">
-            <h2>I Nostri Veicoli in Evidenza</h2>
-            <p>Selezionati per te tra i migliori del mercato</p>
+            <div>
+                <h2>I Nostri Veicoli in Evidenza</h2>
+                <p>Selezionati per te tra i migliori del mercato</p>
+            </div>
+            <a class="btn btn-secondary" href="https://www.autoscout24.it/concessionari/codecar-di-minghini-liliana#atype=C&cid=6547294&ustate=U,N,A&sort=price&results=20&page=1" target="_blank" rel="noopener" id="autoscoutLink">Dai un'occhiata su AutoScout24!</a>
         </div>
 
         <div class="filter-buttons">
@@ -66,151 +71,10 @@
             <button class="filter-btn" data-filter="sedan">Sedan</button>
         </div>
 
-        <div class="vehicles-grid" id="vehiclesGrid">
-            <!-- Auto 1 -->
-            <div class="vehicle-card" data-category="new suv">
-                <div class="vehicle-image">
-                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="BMW X7">
-                    <div class="vehicle-badge">Nuovo</div>
-                    <div class="vehicle-overlay">
-                        <button class="btn-overlay">Scopri di più</button>
-                    </div>
-                </div>
-                <div class="vehicle-info">
-                    <h3>BMW X7 M50i</h3>
-                    <p class="vehicle-type">SUV Lusso 7 Posti</p>
-                    <div class="vehicle-specs">
-                        <span class="spec">🔋 3.0L Turbo</span>
-                        <span class="spec">⚡ 523 CV</span>
-                        <span class="spec">🛣️ 0-100 in 4.6s</span>
-                    </div>
-                    <div class="vehicle-price">
-                        <span class="price">€92.500</span>
-                        <button class="btn-compare">Confronta</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Auto 2 -->
-            <div class="vehicle-card" data-category="new sedan">
-                <div class="vehicle-image">
-                    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=300&fit=crop" alt="Mercedes-Benz C-Class">
-                    <div class="vehicle-badge">Nuovo</div>
-                    <div class="vehicle-overlay">
-                        <button class="btn-overlay">Scopri di più</button>
-                    </div>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Mercedes-Benz C-Class</h3>
-                    <p class="vehicle-type">Berlina Premium</p>
-                    <div class="vehicle-specs">
-                        <span class="spec">🔋 2.0L Turbo</span>
-                        <span class="spec">⚡ 258 CV</span>
-                        <span class="spec">🛣️ 0-100 in 6.3s</span>
-                    </div>
-                    <div class="vehicle-price">
-                        <span class="price">€48.900</span>
-                        <button class="btn-compare">Confronta</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Auto 3 -->
-            <div class="vehicle-card" data-category="used suv">
-                <div class="vehicle-image">
-                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="Audi Q5">
-                    <div class="vehicle-badge used-badge">Usato</div>
-                    <div class="vehicle-overlay">
-                        <button class="btn-overlay">Scopri di più</button>
-                    </div>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Audi Q5 45 TFSI</h3>
-                    <p class="vehicle-type">SUV Sportivo - 2023</p>
-                    <div class="vehicle-specs">
-                        <span class="spec">🔋 2.0L Turbo</span>
-                        <span class="spec">⚡ 265 CV</span>
-                        <span class="spec">🛣️ 0-100 in 6.0s</span>
-                    </div>
-                    <div class="vehicle-price">
-                        <span class="price">€55.800</span>
-                        <button class="btn-compare">Confronta</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Auto 4 -->
-            <div class="vehicle-card" data-category="new sedan">
-                <div class="vehicle-image">
-                    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=300&fit=crop" alt="Alfa Romeo Giulia">
-                    <div class="vehicle-badge">Nuovo</div>
-                    <div class="vehicle-overlay">
-                        <button class="btn-overlay">Scopri di più</button>
-                    </div>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Alfa Romeo Giulia</h3>
-                    <p class="vehicle-type">Berlina Sportiva Italiana</p>
-                    <div class="vehicle-specs">
-                        <span class="spec">🔋 2.2L Diesel</span>
-                        <span class="spec">⚡ 210 CV</span>
-                        <span class="spec">🛣️ 0-100 in 7.2s</span>
-                    </div>
-                    <div class="vehicle-price">
-                        <span class="price">€42.500</span>
-                        <button class="btn-compare">Confronta</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Auto 5 -->
-            <div class="vehicle-card" data-category="used suv">
-                <div class="vehicle-image">
-                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="Range Rover Sport">
-                    <div class="vehicle-badge used-badge">Usato</div>
-                    <div class="vehicle-overlay">
-                        <button class="btn-overlay">Scopri di più</button>
-                    </div>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Range Rover Sport P400</h3>
-                    <p class="vehicle-type">SUV Premium - 2022</p>
-                    <div class="vehicle-specs">
-                        <span class="spec">🔋 3.0L Turbo</span>
-                        <span class="spec">⚡ 400 CV</span>
-                        <span class="spec">🛣️ 0-100 in 5.8s</span>
-                    </div>
-                    <div class="vehicle-price">
-                        <span class="price">€68.900</span>
-                        <button class="btn-compare">Confronta</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Auto 6 -->
-            <div class="vehicle-card" data-category="new suv">
-                <div class="vehicle-image">
-                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop" alt="Porsche Cayenne">
-                    <div class="vehicle-badge">Nuovo</div>
-                    <div class="vehicle-overlay">
-                        <button class="btn-overlay">Scopri di più</button>
-                    </div>
-                </div>
-                <div class="vehicle-info">
-                    <h3>Porsche Cayenne S</h3>
-                    <p class="vehicle-type">SUV Sportivo Premium</p>
-                    <div class="vehicle-specs">
-                        <span class="spec">🔋 2.9L Turbo</span>
-                        <span class="spec">⚡ 440 CV</span>
-                        <span class="spec">🛣️ 0-100 in 5.2s</span>
-                    </div>
-                    <div class="vehicle-price">
-                        <span class="price">€98.500</span>
-                        <button class="btn-compare">Confronta</button>
-                    </div>
-                </div>
-            </div>
+        <div class="vehicles-grid" id="vehiclesGrid" data-feed-url="autoscout-sample.json" data-autoscout-url="https://www.autoscout24.it/concessionari/codecar-di-minghini-liliana#atype=C&cid=6547294&ustate=U,N,A&sort=price&results=20&page=1">
+            <!-- I veicoli verranno caricati dinamicamente dal feed AutoScout24 -->
         </div>
+        <div class="vehicles-status" id="vehiclesStatus">Caricamento veicoli in corso...</div>
     </section>
 
     <!-- Services Section -->
@@ -227,90 +91,72 @@
                 <p>Prova il brivido di guidare il tuo veicolo preferito con un test drive personalizzato</p>
                 <a href="#" class="service-link">Prenota ora →</a>
             </div>
-
             <div class="service-card">
                 <div class="service-icon">💰</div>
                 <h3>Finanziamenti</h3>
                 <p>Piani di finanziamento flessibili con i migliori tassi del mercato</p>
                 <a href="#" class="service-link">Scopri i piani →</a>
             </div>
-
             <div class="service-card">
                 <div class="service-icon">🔧</div>
                 <h3>Manutenzione</h3>
                 <p>Servizi di manutenzione e riparazioni con personale qualificato</p>
                 <a href="#" class="service-link">Prenota service →</a>
             </div>
-
             <div class="service-card">
                 <div class="service-icon">🛡️</div>
                 <h3>Assicurazioni</h3>
                 <p>Pacchetti assicurativi completi con le migliori compagnie partner</p>
                 <a href="#" class="service-link">Chiedi un preventivo →</a>
             </div>
-
             <div class="service-card">
                 <div class="service-icon">🔄</div>
                 <h3>Permuta</h3>
                 <p>Valutazione e ritiro della tua vecchia auto con migliore quotazione</p>
                 <a href="#" class="service-link">Valuta la tua auto →</a>
             </div>
-
             <div class="service-card">
                 <div class="service-icon">📱</div>
-                <h3>Support 24/7</h3>
-                <p>Assistenza clienti sempre disponibile per le tue esigenze</p>
-                <a href="#" class="service-link">Contatta il supporto →</a>
+                <h3>Supporto 24/7</h3>
+                <p>Assistenza dedicata e tempi di risposta rapidi per ogni esigenza</p>
+                <a href="#" class="service-link">Parla con noi →</a>
             </div>
         </div>
     </section>
 
-    <!-- Why Us Section -->
-    <section class="why-us">
-        <div class="why-us-content">
-            <h2>Perché Sceglierci</h2>
-            <ul class="features-list">
-                <li class="feature-item">✨ Veicoli certificati e garantiti fino a 7 anni</li>
-                <li class="feature-item">🎯 Team esperto e professionale</li>
-                <li class="feature-item">💎 Trasparenza totale sui prezzi</li>
-                <li class="feature-item">🚚 Consegna e ritiro gratuiti</li>
-                <li class="feature-item">📋 Documentazione completa fornita</li>
-                <li class="feature-item">⭐ Oltre 500 clienti soddisfatti</li>
-            </ul>
+    <!-- Why Choose Us -->
+    <section class="stats-section">
+        <div class="stat">
+            <h3>250+</h3>
+            <p>Veicoli consegnati ogni anno</p>
         </div>
-        <div class="why-us-stats">
-            <div class="stat">
-                <h3>500+</h3>
-                <p>Clienti Felici</p>
-            </div>
-            <div class="stat">
-                <h3>25+</h3>
-                <p>Anni di Esperienza</p>
-            </div>
-            <div class="stat">
-                <h3>1000+</h3>
-                <p>Auto Vendute</p>
-            </div>
-            <div class="stat">
-                <h3>98%</h3>
-                <p>Soddisfazione Cliente</p>
-            </div>
+        <div class="stat">
+            <h3>30+</h3>
+            <p>Anni di esperienza</p>
+        </div>
+        <div class="stat">
+            <h3>4.8/5</h3>
+            <p>Soddisfazione clienti</p>
+        </div>
+        <div class="stat">
+            <h3>12</h3>
+            <p>Servizi dedicati</p>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="about-content">
-            <h2>Chi Siamo</h2>
-            <p>Rossi Auto è una concessionaria leader nel settore automobilistico con oltre 25 anni di esperienza. Siamo dedicati a fornire i migliori veicoli e servizi ai nostri clienti, con un impegno costante verso l'eccellenza e la trasparenza.</p>
-            <p>La nostra missione è rendere l'esperienza di acquisto di un'auto semplice, piacevole e trasparente, offrendo una vasta gamma di veicoli nuovi e usati, servizi di finanziamento flessibili e un supporto post-vendita eccezionale.</p>
+            <h2>Chi siamo</h2>
+            <p>Codecar di Seregno offre selezioni curate di veicoli e servizi premium per garantire un'esperienza d'acquisto trasparente, veloce e di qualità. Il nostro team segue il cliente in ogni fase: dalla scelta dell'auto, al finanziamento, alla consegna e post-vendita.</p>
+            <p>Crediamo in un approccio umano e digitale insieme: visibilità online aggiornata con AutoScout24 e consulenza in sede personalizzata.</p>
             <div class="about-buttons">
-                <button class="btn btn-primary">Leggi la nostra storia</button>
+                <button class="btn btn-primary">Prenota un appuntamento</button>
                 <button class="btn btn-secondary">Visita la nostra sede</button>
             </div>
         </div>
         <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1566023967268-de0b92b10f0b?w=500&h=400&fit=crop" alt="Concessionaria">
+            <img src="https://images.unsplash.com/photo-1566023967268-de0b92b10f0b?w=800&h=600&fit=crop" alt="Concessionaria Codecar di Seregno">
         </div>
     </section>
 
@@ -326,21 +172,18 @@
                 <div class="info-card">
                     <div class="info-icon">📍</div>
                     <h3>Indirizzo</h3>
-                    <p>Via Roma 123<br>00100 Roma, Italia</p>
+                    <p>Via Roma 123<br>20831 Seregno (MB), Italia</p>
                 </div>
-
                 <div class="info-card">
                     <div class="info-icon">📞</div>
                     <h3>Telefono</h3>
-                    <p>+39 06 1234 5678<br>+39 320 123 4567</p>
+                    <p>+39 0362 123456<br>+39 320 123 4567</p>
                 </div>
-
                 <div class="info-card">
                     <div class="info-icon">✉️</div>
                     <h3>Email</h3>
-                    <p>info@rossiato.it<br>vendite@rossiato.it</p>
+                    <p>info@codecar.it<br>vendite@codecar.it</p>
                 </div>
-
                 <div class="info-card">
                     <div class="info-icon">🕒</div>
                     <h3>Orari</h3>
@@ -370,15 +213,14 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>ROSSI AUTO</h3>
-                <p>La concessionaria che si prende cura di te</p>
+                <h3>CODECAR DI SEREGNO</h3>
+                <p>La concessionaria che ti accoglie con servizi su misura.</p>
                 <div class="social-links">
                     <a href="#" class="social-link">f</a>
                     <a href="#" class="social-link">in</a>
                     <a href="#" class="social-link">@</a>
                 </div>
             </div>
-
             <div class="footer-section">
                 <h4>Link Utili</h4>
                 <ul>
@@ -388,7 +230,6 @@
                     <li><a href="#about">Chi Siamo</a></li>
                 </ul>
             </div>
-
             <div class="footer-section">
                 <h4>Servizi</h4>
                 <ul>
@@ -398,15 +239,13 @@
                     <li><a href="#">Assicurazioni</a></li>
                 </ul>
             </div>
-
             <div class="footer-section">
                 <h4>Contatti</h4>
-                <p>📞 +39 06 1234 5678<br>✉️ info@rossiato.it</p>
+                <p>📞 +39 0362 123456<br>✉️ info@codecar.it</p>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <p>&copy; 2025 Rossi Auto. Tutti i diritti riservati.</p>
+            <p>&copy; 2025 Codecar di Seregno. Tutti i diritti riservati.</p>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Termini di Servizio</a>
@@ -433,12 +272,10 @@
                 <div class="form-group">
                     <select required>
                         <option value="">Seleziona un veicolo</option>
-                        <option value="bmw">BMW X7 M50i</option>
-                        <option value="mercedes">Mercedes-Benz C-Class</option>
-                        <option value="audi">Audi Q5 45 TFSI</option>
-                        <option value="alfa">Alfa Romeo Giulia</option>
-                        <option value="range">Range Rover Sport</option>
-                        <option value="porsche">Porsche Cayenne S</option>
+                        <option value="fiat500">Fiat 500 Hybrid</option>
+                        <option value="renegade">Jeep Renegade</option>
+                        <option value="yaris">Toyota Yaris Cross</option>
+                        <option value="a3">Audi A3</option>
                     </select>
                 </div>
                 <div class="form-group">
