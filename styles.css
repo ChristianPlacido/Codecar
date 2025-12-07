@@ -1,13 +1,13 @@
 /* ===== ROOT VARIABLES ===== */
 :root {
-    --primary: #fff;
-    --secondary: #232323;
-    --accent: #ff9800;
-    --accent-light: #ffd600;
-    --text: #232323;
-    --text-dark: #ff9800;
-    --border: rgba(255, 152, 0, 0.15);
-    --shadow: 0 20px 60px rgba(255, 152, 0, 0.08);
+    --primary: #ffffff;
+    --secondary: #1f1f1f;
+    --accent: #ffb300;
+    --accent-light: #ffd54f;
+    --text: #1f1f1f;
+    --text-dark: #ffb300;
+    --border: rgba(255, 179, 0, 0.18);
+    --shadow: 0 20px 60px rgba(255, 179, 0, 0.10);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -263,7 +263,7 @@ p {
     position: absolute;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(255, 152, 0, 0.14) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 179, 0, 0.16) 0%, transparent 70%);
     border-radius: 50%;
     top: -100px;
     right: -100px;
@@ -315,6 +315,55 @@ p {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.hero-visual {
+    position: absolute;
+    right: 6%;
+    bottom: 6%;
+    width: min(48vw, 480px);
+    max-width: 520px;
+    aspect-ratio: 16 / 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.hero-logo-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.2));
+    opacity: 0;
+    transform: translateX(-40px);
+    animation: driveIn 1.2s ease-out 0.2s forwards, hoverFloat 5s ease-in-out 1.4s infinite;
+}
+
+.hero-car-glow {
+    position: absolute;
+    inset: 10% 0 0 0;
+    background: radial-gradient(circle at 50% 60%, rgba(255, 152, 0, 0.25) 0%, transparent 60%);
+    filter: blur(24px);
+    opacity: 0.85;
+    transform: scale(0.9);
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes driveIn {
+    0% { opacity: 0; transform: translateX(-80px) scale(0.94); }
+    60% { opacity: 1; transform: translateX(8px) scale(1.02); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes hoverFloat {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(4px) translateY(-6px); }
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.85; transform: scale(0.9); }
+    50% { opacity: 0.4; transform: scale(1.02); }
 }
 
 /* Logo welcome animation */
