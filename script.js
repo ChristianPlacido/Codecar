@@ -33,6 +33,19 @@ const ctaBtn = document.getElementById('ctaBtn');
 const exploreCars = document.getElementById('exploreCars');
 const contactUs = document.getElementById('contactUs');
 const modalClose = document.querySelector('.modal-close');
+const vehicleModal = document.getElementById('vehicleModal');
+const vehicleModalClose = document.getElementById('vehicleModalClose');
+const vehicleModalImage = document.getElementById('vehicleModalImage');
+const vehicleModalTitle = document.getElementById('vehicleModalTitle');
+const vehicleModalSubtitle = document.getElementById('vehicleModalSubtitle');
+const vehicleModalSpecs = document.getElementById('vehicleModalSpecs');
+const vehicleModalPrice = document.getElementById('vehicleModalPrice');
+const vehicleModalCta = document.getElementById('vehicleModalCta');
+
+const formatPrice = (value) => {
+    if (!value && value !== 0) return 'Prezzo su richiesta';
+    return `€${Number(value).toLocaleString('it-IT')}`;
+};
 
 function openModal() {
     testDriveModal.classList.add('active');
@@ -42,19 +55,63 @@ function closeModal() {
     testDriveModal.classList.remove('active');
 }
 
+const closeVehicleModal = () => {
+    if (vehicleModal) vehicleModal.classList.remove('active');
+};
+
+const openVehicleModal = (vehicle = {}) => {
+    if (!vehicleModal) return;
+    const gallery = Array.isArray(vehicle.gallery) ? vehicle.gallery : (vehicle.image ? [vehicle.image] : []);
+    const cover = gallery.find(Boolean) || '';
+
+    if (vehicleModalImage) vehicleModalImage.src = cover;
+    if (vehicleModalTitle) vehicleModalTitle.textContent = vehicle.title || 'Veicolo Codecar';
+    if (vehicleModalSubtitle) vehicleModalSubtitle.textContent = vehicle.subtitle || '';
+
+    if (vehicleModalSpecs) {
+        const specs = [];
+        if (vehicle.fuel) specs.push(`Carburante: ${vehicle.fuel}`);
+        if (vehicle.power) specs.push(`Potenza: ${vehicle.power}`);
+        if (vehicle.km) specs.push(`Chilometraggio: ${vehicle.km}`);
+        if (vehicle.year) specs.push(`Anno: ${vehicle.year}`);
+        vehicleModalSpecs.innerHTML = specs.map(s => `<span class="spec-chip">${s}</span>`).join('');
+    }
+
+    if (vehicleModalPrice) vehicleModalPrice.textContent = formatPrice(vehicle.price);
+
+    if (vehicleModalCta) {
+        if (vehicle.link) {
+            vehicleModalCta.href = vehicle.link;
+            vehicleModalCta.style.display = 'inline-flex';
+        } else {
+            vehicleModalCta.style.display = 'none';
+        }
+    }
+
+    vehicleModal.classList.add('active');
+};
+
 if (ctaBtn) ctaBtn.addEventListener('click', openModal);
 if (exploreCars) exploreCars.addEventListener('click', () => {
+    document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
+});
+const exploreCarsAbout = document.getElementById('exploreCarsAbout');
+if (exploreCarsAbout) exploreCarsAbout.addEventListener('click', () => {
     document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
 });
 if (contactUs) contactUs.addEventListener('click', () => {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 });
 if (modalClose) modalClose.addEventListener('click', closeModal);
+if (vehicleModalClose) vehicleModalClose.addEventListener('click', closeVehicleModal);
 
 // Close modal when clicking outside
 window.addEventListener('click', (e) => {
     if (e.target === testDriveModal) {
         closeModal();
+    }
+    if (e.target === vehicleModal) {
+        closeVehicleModal();
     }
 });
 
@@ -114,15 +171,93 @@ const sampleVehicles = [
     }
 ];
 
-const formatPrice = (value) => {
-    if (!value && value !== 0) return 'Prezzo su richiesta';
-    return `€${Number(value).toLocaleString('it-IT')}`;
-};
-
 const badgeForTags = (tags = []) => {
     if (tags.includes('new')) return { text: 'Nuovo', className: '' };
     if (tags.includes('km0')) return { text: 'KM0', className: '' };
     return { text: 'Usato', className: 'used-badge' };
+};
+
+const mapAutoscoutListing = (listing = {}) => {
+    const vehicle = listing.vehicle || {};
+    const gallery = Array.isArray(listing.images) ? listing.images : [];
+    const primaryImage = gallery.find(Boolean) || '';
+    const price = listing.prices?.public?.priceRaw ?? listing.prices?.dealer?.priceRaw ?? listing.prices?.priceRaw ?? null;
+    const body = vehicle.bodyType?.formatted || vehicle.category?.formatted || '';
+    const year = vehicle.firstRegistrationDate?.formatted || vehicle.firstRegistrationDate || '';
+    const mileage = vehicle.mileageInKm?.formatted || vehicle.mileage?.formatted || '';
+    const power = vehicle.powerInHp?.formatted || vehicle.power?.formatted || '';
+    const fuel = vehicle.fuelCategory?.formatted || vehicle.fuelType?.formatted || '';
+
+    const tags = [];
+    const condition = (vehicle.offerType?.formatted || vehicle.condition?.formatted || listing.offerType || '').toLowerCase();
+    const bodyKey = body.toLowerCase();
+
+    if (condition.includes('km')) {
+        tags.push('km0', 'new');
+    } else if (condition.includes('nuovo') || condition.includes('new')) {
+        tags.push('new');
+    } else {
+        tags.push('used');
+    }
+
+    if (bodyKey.includes('suv')) tags.push('suv');
+    if (bodyKey.includes('cabrio')) tags.push('cabrio');
+    if (bodyKey.includes('city') || bodyKey.includes('utilitaria')) tags.push('citycar');
+    if (bodyKey.includes('berlina')) tags.push('sedan');
+
+    const subtitleParts = [body || null, year || null, mileage || null].filter(Boolean);
+    const subtitle = subtitleParts.join(' • ');
+    const link = listing.url ? `https://www.autoscout24.it${listing.url}` : '';
+    const title = `${vehicle.make || ''} ${vehicle.model || ''} ${vehicle.modelVersionInput || vehicle.modelVersion || ''}`.replace(/\s+/g, ' ').trim();
+
+    return {
+        id: listing.id?.toString() || listing.listingId?.toString() || title,
+        title: title || 'Veicolo Codecar',
+        subtitle,
+        price,
+        fuel,
+        power,
+        km: mileage,
+        year: year || '',
+        image: primaryImage,
+        gallery,
+        tags,
+        link
+    };
+};
+
+const normalizeAutoscoutUrl = (url = '') => {
+    if (!url) return '';
+    const [base, hash] = url.split('#');
+    if (hash && !hash.startsWith('http')) {
+        return `${base}?${hash}`;
+    }
+    return base;
+};
+
+const fetchAutoscoutListings = async (autoscoutUrl) => {
+    if (!autoscoutUrl) throw new Error('URL AutoScout24 non fornita');
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(autoscoutUrl)}`;
+
+    const fetchPage = async () => {
+        const response = await fetch(proxyUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'
+            }
+        });
+        if (!response.ok) throw new Error('Richiesta AutoScout24 fallita');
+        return response.text();
+    };
+
+    const html = await fetchPage();
+    const match = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+    if (!match) throw new Error('Dati AutoScout24 non trovati');
+
+    const parsed = JSON.parse(match[1]);
+    const listings = parsed?.props?.pageProps?.listings || parsed?.props?.pageProps?.searchResults?.listings || [];
+    if (!Array.isArray(listings) || !listings.length) throw new Error('Nessun veicolo trovato su AutoScout24');
+
+    return listings.map(mapAutoscoutListing).filter(Boolean);
 };
 
 const renderVehicles = (list) => {
@@ -159,6 +294,19 @@ const renderVehicles = (list) => {
         `;
 
         vehiclesGrid.appendChild(card);
+
+        const overlayBtn = card.querySelector('.btn-overlay');
+        if (overlayBtn) {
+            overlayBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openVehicleModal(vehicle);
+            });
+        }
+
+        const imageWrapper = card.querySelector('.vehicle-image');
+        if (imageWrapper) {
+            imageWrapper.addEventListener('click', () => openVehicleModal(vehicle));
+        }
 
         if (fadeObserver) {
             card.classList.add('fade-in');
@@ -215,7 +363,7 @@ filterBtns.forEach(btn => {
 const loadVehicles = async () => {
     if (!vehiclesGrid) return;
     const feedUrl = vehiclesGrid.dataset.feedUrl;
-    const autoscoutUrl = vehiclesGrid.dataset.autoscoutUrl;
+    const autoscoutUrl = normalizeAutoscoutUrl(vehiclesGrid.dataset.autoscoutUrl || '');
     if (autoscoutLinkEl && autoscoutUrl) {
         autoscoutLinkEl.href = autoscoutUrl;
     }
@@ -225,23 +373,32 @@ const loadVehicles = async () => {
     };
 
     try {
-        setStatus('Caricamento veicoli da AutoScout24...');
-        if (feedUrl) {
-            const response = await fetch(feedUrl);
-            if (!response.ok) throw new Error('Feed non disponibile');
-            const data = await response.json();
-            // Atteso formato array di veicoli; adattare se necessario.
-            allVehicles = Array.isArray(data) ? data : (data.vehicles || []);
-            if (!allVehicles.length) throw new Error('Nessun veicolo nel feed');
-            setStatus(`${allVehicles.length} veicoli caricati dal feed.`);
-        } else {
-            allVehicles = sampleVehicles;
-            setStatus('Feed non configurato: mostriamo esempi. Imposta data-feed-url sul contenitore.');
-        }
+        setStatus('Caricamento veicoli dal feed locale...');
+        if (!feedUrl) throw new Error('Feed non configurato');
+
+        const response = await fetch(feedUrl);
+        if (!response.ok) throw new Error('Feed non disponibile');
+        const data = await response.json();
+        allVehicles = Array.isArray(data) ? data : (data.vehicles || []);
+        if (!allVehicles.length) throw new Error('Nessun veicolo nel feed');
+        setStatus(`${allVehicles.length} veicoli caricati dal feed.`);
     } catch (err) {
         console.error('AutoScout24 feed error:', err);
-        allVehicles = sampleVehicles;
-        setStatus('Feed non raggiungibile: mostriamo esempi.');
+
+        if (autoscoutUrl) {
+            try {
+                setStatus('Feed non disponibile: recupero dati live da AutoScout24...');
+                allVehicles = await fetchAutoscoutListings(autoscoutUrl);
+                setStatus(`${allVehicles.length} veicoli caricati da AutoScout24.`);
+            } catch (autoErr) {
+                console.error('AutoScout24 live error:', autoErr);
+                allVehicles = sampleVehicles;
+                setStatus('AutoScout24 non raggiungibile: mostriamo esempi.');
+            }
+        } else {
+            allVehicles = sampleVehicles;
+            setStatus('URL AutoScout24 mancante: mostriamo esempi.');
+        }
     }
 
     applyFilter('all');
@@ -424,10 +581,45 @@ stats.forEach(stat => {
     observer.observe(stat);
 });
 
+// ===== MOTORSPORT COUNTERS =====
+const msCounters = document.querySelectorAll('.ms-counter');
+if (msCounters.length) {
+    const animateMsCounter = (el) => {
+        const target = parseInt(el.dataset.target || '0', 10);
+        const valueEl = el.querySelector('.ms-counter-value');
+        if (!valueEl) return;
+        let current = 0;
+        const duration = 1600;
+        const increment = Math.max(1, Math.ceil(target / (duration / 16)));
+        const tick = () => {
+            current += increment;
+            if (current >= target) {
+                valueEl.textContent = target;
+            } else {
+                valueEl.textContent = current;
+                requestAnimationFrame(tick);
+            }
+        };
+        requestAnimationFrame(tick);
+    };
+
+    const msObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateMsCounter(entry.target);
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    msCounters.forEach(counter => msObserver.observe(counter));
+}
+
 // ===== KEYBOARD NAVIGATION =====
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeModal();
+        closeVehicleModal();
     }
 });
 

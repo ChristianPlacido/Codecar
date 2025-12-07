@@ -17,10 +17,10 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
-            <div class="nav-logo">
-                <img src="logo-codecar.svg" alt="Logo Codecar Seregno" style="height:40px;vertical-align:middle;margin-right:8px;">
+            <a class="nav-logo" href="#home" aria-label="Torna alla home">
+                <img src="logo-codecar-original.png" alt="Logo Codecar Seregno" style="height:40px;vertical-align:middle;margin-right:8px;">
                 <span class="logo-text">CODECAR DI SEREGNO</span>
-            </div>
+            </a>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -31,6 +31,7 @@
                 <li class="nav-item"><a href="#vehicles" class="nav-link">Veicoli</a></li>
                 <li class="nav-item"><a href="#services" class="nav-link">Servizi</a></li>
                 <li class="nav-item"><a href="#about" class="nav-link">Chi Siamo</a></li>
+                <li class="nav-item"><a href="#motorsport" class="nav-link">Motorsport</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contatti</a></li>
                 <li class="nav-item"><button class="cta-btn" id="ctaBtn">Prenota Test Drive</button></li>
             </ul>
@@ -52,11 +53,82 @@
             </div>
         </div>
         <div class="hero-visual">
-            <div class="hero-car-glow"></div>
-            <img class="hero-logo-img" src="logo-codecar.svg" alt="Codecar Seregno" loading="lazy">
+            <div class="hero-drive" aria-hidden="true">
+                <div class="hero-car-glow"></div>
+                <div class="hero-car-icon">🚗</div>
+                <img class="hero-logo-dynamic" src="logo-codecar-original.png" alt="Codecar Seregno" loading="lazy">
+            </div>
         </div>
         <div class="hero-background">
             <div class="gradient-blur"></div>
+        </div>
+    </section>
+
+    <!-- Motorsport Section -->
+    <section id="motorsport" class="motorsport-section">
+        <div class="motorsport-hero">
+            <div>
+                <p class="eyebrow">Motorsport</p>
+                <h2>La storia vincente di Lorenzo Codecà</h2>
+                <p>Lorenzo Codecà è pluricampione italiano di Cross Country Rally con Suzuki: anni di dune, fango e navigazione gli hanno insegnato che l'affidabilità è tutto. Codecar nasce da questa esperienza: stessa cura per i dettagli, stessa voglia di arrivare al traguardo con i clienti.</p>
+                <p>Ogni consegna porta con sé la mentalità da gara: preparazione meticolosa, trasparenza nei controlli, consigli pratici su come far rendere al meglio ogni vettura.</p>
+            </div>
+            <div class="motorsport-badge">
+                <img src="logo-codecar-original.png" alt="Codecar Motorsport" class="motorsport-logo">
+                <span>Spirit of Rally</span>
+            </div>
+        </div>
+
+        <div class="motorsport-grid">
+            <div class="motorsport-card">
+                <h3>Trofei e traguardi</h3>
+                <p>Numeri che testimoniano affidabilità in gara e attenzione ai dettagli che oggi mettiamo su ogni auto consegnata.</p>
+                <div class="ms-counters">
+                    <div class="ms-counter" data-target="9" data-label="Titoli italiani Cross Country Rally">
+                        <span class="ms-counter-value">0</span><span class="ms-counter-suffix">+</span>
+                        <small class="ms-counter-label">Titoli italiani Cross Country Rally</small>
+                    </div>
+                    <div class="ms-counter" data-target="50" data-label="Podi nazionali e di categoria">
+                        <span class="ms-counter-value">0</span><span class="ms-counter-suffix">+</span>
+                        <small class="ms-counter-label">Podi nazionali e di categoria</small>
+                    </div>
+                    <div class="ms-counter" data-target="180" data-label="Prove speciali completate">
+                        <span class="ms-counter-value">0</span><span class="ms-counter-suffix">+</span>
+                        <small class="ms-counter-label">Prove speciali completate</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="motorsport-card">
+                <h3>Filosofia di guida</h3>
+                <ul class="ms-list">
+                    <li><strong>Preparazione</strong>: ogni consegna è verificata come una vettura da speciale.</li>
+                    <li><strong>Affidabilità</strong>: controlli puntuali e scelta di mezzi che non tradiscono.</li>
+                    <li><strong>Performance</strong>: consigli su assetto, gomme e uso quotidiano pensati da chi ha corso.</li>
+                </ul>
+            </div>
+
+            <div class="motorsport-card">
+                <h3>Momenti chiave</h3>
+                <div class="ms-timeline">
+                    <div class="ms-timeline-item">
+                        <span class="ms-year">2004</span>
+                        <p>Debutto nei rally raid: prime vittorie di categoria e confidenza con gli sterrati più duri.</p>
+                    </div>
+                    <div class="ms-timeline-item">
+                        <span class="ms-year">2006</span>
+                        <p>Primo titolo italiano Cross Country Rally con Suzuki: metodo di preparazione maniacale.</p>
+                    </div>
+                    <div class="ms-timeline-item">
+                        <span class="ms-year">2011-2017</span>
+                        <p>Serie di titoli e successi su Grand Vitara e Jimny: leadership Suzuki nelle gare nazionali.</p>
+                    </div>
+                    <div class="ms-timeline-item">
+                        <span class="ms-year">Oggi</span>
+                        <p>La mentalità da speciale guida l'accoglienza in Codecar: trasparenza, preparazione, fiducia.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -78,7 +150,7 @@
             <button class="filter-btn" data-filter="sedan">Sedan</button>
         </div>
 
-        <div class="vehicles-grid" id="vehiclesGrid" data-feed-url="autoscout-sample.json" data-autoscout-url="https://www.autoscout24.it/concessionari/codecar-di-minghini-liliana#atype=C&cid=6547294&ustate=U,N,A&sort=price&results=20&page=1">
+        <div class="vehicles-grid" id="vehiclesGrid" data-feed-url="autoscout-feed.json" data-autoscout-url="https://www.autoscout24.it/concessionari/codecar-di-minghini-liliana#atype=C&cid=6547294&ustate=U,N,A&sort=price&results=20&page=1">
             <!-- I veicoli verranno caricati dinamicamente dal feed AutoScout24 -->
         </div>
         <div class="vehicles-status" id="vehiclesStatus">Caricamento veicoli in corso...</div>
@@ -155,8 +227,8 @@
     <section id="about" class="about-section">
         <div class="about-content">
             <h2>Chi siamo</h2>
-            <p>Codecar di Seregno offre selezioni curate di veicoli e servizi premium per garantire un'esperienza d'acquisto trasparente, veloce e di qualità. Il nostro team segue il cliente in ogni fase: dalla scelta dell'auto, al finanziamento, alla consegna e post-vendita.</p>
-            <p>Crediamo in un approccio umano e digitale insieme: visibilità online aggiornata con AutoScout24 e consulenza in sede personalizzata.</p>
+            <p>Codecar di Seregno nasce dall'esperienza di Lorenzo Codecà, pluricampione italiano di Cross Country Rally. In gara l'affidabilità è tutto: per questo selezioniamo e controlliamo ogni veicolo con la stessa disciplina che porta ai traguardi.</p>
+            <p>Siamo un team di pista e di officina: visibilità online aggiornata con AutoScout24, consulenza in sede dove raccontiamo cosa c'è dietro ogni auto, assistenza continua per creare fiducia prima e dopo l'acquisto.</p>
             <div class="about-buttons">
                 <button class="btn btn-primary">Prenota un appuntamento</button>
                 <button class="btn btn-secondary">Visita la nostra sede</button>
@@ -196,6 +268,12 @@
                     <h3>Orari</h3>
                     <p>Lun-Ven: 09:00 - 19:00<br>Sab: 10:00 - 18:00</p>
                 </div>
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3>Indirizzo</h3>
+                    <p>Via San Rocco 12, 20831 Seregno (MB)</p>
+                    <a href="https://maps.google.com/?q=Via+San+Rocco+12+Seregno" target="_blank" rel="noopener" class="service-link">Apri mappa →</a>
+                </div>
             </div>
 
             <form class="contact-form" id="contactForm">
@@ -220,8 +298,13 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>CODECAR DI SEREGNO</h3>
-                <p>La concessionaria che ti accoglie con servizi su misura.</p>
+                <div class="footer-brand">
+                    <img src="logo-codecar-original.png" alt="Logo Codecar" class="footer-logo">
+                    <div>
+                        <h3>CODECAR DI SEREGNO</h3>
+                        <p>La concessionaria che ti accoglie con servizi su misura.</p>
+                    </div>
+                </div>
                 <div class="social-links">
                     <a href="#" class="social-link">f</a>
                     <a href="#" class="social-link">in</a>
@@ -290,6 +373,29 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Conferma Prenotazione</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Dettaglio Veicolo -->
+    <div class="modal" id="vehicleModal">
+        <div class="modal-content vehicle-modal">
+            <button class="modal-close" id="vehicleModalClose">&times;</button>
+            <div class="vehicle-modal-body">
+                <div class="vehicle-modal-media">
+                    <img id="vehicleModalImage" alt="Veicolo Codecar">
+                </div>
+                <div class="vehicle-modal-info">
+                    <div class="vehicle-modal-header">
+                        <h2 id="vehicleModalTitle"></h2>
+                        <p id="vehicleModalSubtitle"></p>
+                    </div>
+                    <div class="vehicle-modal-specs" id="vehicleModalSpecs"></div>
+                    <div class="vehicle-modal-price">
+                        <span id="vehicleModalPrice"></span>
+                        <a class="btn btn-primary" id="vehicleModalCta" target="_blank" rel="noopener">Vedi su AutoScout24</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

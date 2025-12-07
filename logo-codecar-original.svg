@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200" role="img" aria-label="Codecar logo">
+  <defs>
+    <linearGradient id="accentGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ffb300"/>
+      <stop offset="100%" stop-color="#ffd54f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="200" fill="transparent"/>
+  <text x="50" y="140" font-family="'Poppins', 'Inter', Arial, sans-serif" font-size="120" font-weight="900" fill="#0f0f0f" letter-spacing="6" stroke="url(#accentGrad)" stroke-width="3" paint-order="stroke fill">
+    CODECAR
+  </text>
+</svg>
