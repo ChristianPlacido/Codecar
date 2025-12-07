@@ -1,6 +1,7 @@
 // ===== MOBILE MENU TOGGLE =====
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
+const navLinks = Array.from(document.querySelectorAll('.nav-link'));
 
 if (hamburger) {
     hamburger.addEventListener('click', () => {
@@ -9,7 +10,7 @@ if (hamburger) {
     });
 
     // Close menu when link is clicked
-    document.querySelectorAll('.nav-link').forEach(link => {
+    navLinks.forEach(link => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
@@ -26,6 +27,76 @@ window.addEventListener('scroll', () => {
         navbar.style.boxShadow = 'none';
     }
 });
+
+// ===== NAV ACTIVE STATE =====
+const sections = Array.from(document.querySelectorAll('section[id]'));
+
+const setActiveNav = (hash) => {
+    navLinks.forEach(link => {
+        const matches = link.getAttribute('href') === hash;
+        link.classList.toggle('active', matches);
+    });
+};
+
+// On click, immediately highlight
+navLinks.forEach(link => {
+    link.addEventListener('click', () => setActiveNav(link.getAttribute('href')));
+});
+
+// On scroll, highlight the section in view
+const updateActiveOnScroll = () => {
+    const scrollPos = window.scrollY + 140; // offset for fixed navbar
+    let currentId = '#home';
+    for (const section of sections) {
+        if (section.offsetTop <= scrollPos) {
+            currentId = `#${section.id}`;
+        }
+    }
+    setActiveNav(currentId);
+};
+
+window.addEventListener('scroll', updateActiveOnScroll);
+updateActiveOnScroll();
+
+// ===== HERO LOGO INTERACTIONS =====
+const heroSection = document.querySelector('.hero');
+const heroLogo = document.querySelector('.hero-logo-main');
+let hoverTilt = 0;
+let hoverLift = 0;
+
+const applyHeroTransform = (scrollY = window.scrollY) => {
+    if (!heroLogo) return;
+    const progress = Math.min(1, Math.max(0, scrollY / 420));
+    const baseShift = progress * 16 + hoverLift;
+    const baseTilt = progress * 2.6 + hoverTilt;
+    const baseScale = 1 - progress * 0.035 + Math.min(0.02, Math.abs(hoverTilt) * 0.01);
+
+    heroLogo.style.setProperty('--logo-shift', `${baseShift}px`);
+    heroLogo.style.setProperty('--logo-tilt', `${baseTilt}deg`);
+    heroLogo.style.setProperty('--logo-scale', baseScale.toFixed(3));
+};
+
+if (heroSection && heroLogo) {
+    heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width - 0.5;
+        const relY = (e.clientY - rect.top) / rect.height - 0.5;
+        hoverTilt = relX * 6; // rotate a bit following cursor
+        hoverLift = -relY * 10; // move up/down slightly
+        heroLogo.classList.add('hovered');
+        applyHeroTransform();
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+        hoverTilt = 0;
+        hoverLift = 0;
+        heroLogo.classList.remove('hovered');
+        applyHeroTransform();
+    });
+}
+
+window.addEventListener('scroll', () => applyHeroTransform());
+applyHeroTransform();
 
 // ===== MODAL FUNCTIONALITY =====
 const testDriveModal = document.getElementById('testDriveModal');

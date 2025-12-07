@@ -94,15 +94,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 .nav-logo {
     display: flex;
     align-items: center;
-    font-weight: 800;
-    letter-spacing: 0.05em;
     color: var(--text);
-    text-transform: uppercase;
-}
-
-.logo-text {
-    font-size: 1.2rem;
-    line-height: 1.25;
+    gap: 0.25rem;
 }
 
 .nav-menu {
@@ -130,6 +123,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
     height: 2px;
     background: var(--accent);
     transition: var(--transition);
+}
+
+.nav-link:active,
+.nav-link.active {
+    color: var(--accent);
+}
+
+.nav-link.active::after {
+    width: 100%;
 }
 
 .nav-link:hover,
@@ -251,11 +253,50 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
     margin-bottom: 0;
 }
 
+.hero-logo-wrapper {
+    position: relative;
+    display: inline-flex;
+    padding: 1rem 1.5rem;
+    overflow: visible;
+}
+
+.hero-logo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 20% -24% 40% -32%;
+    background: linear-gradient(120deg, rgba(246,164,0,0) 0%, rgba(246,164,0,0.5) 35%, rgba(255,207,63,0.65) 65%, rgba(246,164,0,0) 100%);
+    filter: blur(24px);
+    opacity: 0;
+    transform: translateX(-25%);
+    pointer-events: none;
+    animation: logoTrailSweep 1.2s ease-out 0.2s forwards;
+}
+
+.hero-logo-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 12% 6% 8% 6%;
+    border-radius: 28px;
+    background: radial-gradient(circle at 20% 50%, rgba(246,164,0,0.18), transparent 55%);
+    filter: blur(18px);
+    opacity: 0.6;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
 .hero-logo-main {
     width: min(560px, 86vw);
     filter: drop-shadow(0 12px 26px rgba(0,0,0,0.2));
-    animation: heroLogoPulse 5.5s ease-in-out infinite;
+    animation: heroLogoPulse 5.5s ease-in-out infinite, heroLogoEnter 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1) 0.05s both;
+    transform: translateY(var(--logo-shift, 0px)) rotate(var(--logo-tilt, 0deg)) scale(var(--logo-scale, 1));
+    transition: transform 0.25s ease, filter 0.25s ease;
 }
+
+.hero-logo-main.hovered {
+    filter: drop-shadow(0 18px 32px rgba(0,0,0,0.25));
+}
+
+.hero-logo-wrapper:hover::after { opacity: 0.85; }
 
 .logo-splash { position: relative; display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; overflow: hidden; }
 
@@ -339,6 +380,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 @keyframes hoverFloat {
     0%, 100% { transform: translateX(0) translateY(0); }
     50% { transform: translateX(4px) translateY(-6px); }
+}
+
+@keyframes logoTrailSweep {
+    0% { opacity: 0; transform: translateX(-28%); filter: blur(28px); }
+    30% { opacity: 0.8; }
+    65% { opacity: 0.4; }
+    100% { opacity: 0; transform: translateX(48%); filter: blur(16px); }
+}
+
+@keyframes heroLogoEnter {
+    0% { opacity: 0; transform: translateY(22px) scale(0.96); }
+    60% { opacity: 1; transform: translateY(-6px) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes glowPulse {
