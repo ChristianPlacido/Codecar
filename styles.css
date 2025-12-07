@@ -46,7 +46,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 
 .page-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 1.5rem;
 }
@@ -247,8 +247,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 }
 
 .hero-logo-main {
-    width: min(480px, 82vw);
-    filter: drop-shadow(0 12px 26px rgba(0,0,0,0.16));
+    width: min(560px, 86vw);
+    filter: drop-shadow(0 12px 26px rgba(0,0,0,0.2));
     animation: heroLogoPulse 5.5s ease-in-out infinite;
 }
 
@@ -421,7 +421,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 .footer-bottom,
 .navbar-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
@@ -458,8 +458,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 
 .vehicles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.4rem;
 }
 
 .vehicle-card {
@@ -493,6 +493,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
     height: 100%;
     object-fit: cover;
     transition: opacity 0.35s ease;
+    image-rendering: auto;
 }
 
 .vehicle-card:hover .vehicle-image img { opacity: 0.96; }
@@ -888,7 +889,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); }
 .modal-form { display: flex; flex-direction: column; gap: 1rem; }
 
 .vehicle-modal { max-width: 980px; }
-.vehicle-modal-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; align-items: start; }
+.vehicle-modal-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem; align-items: start; }
 .vehicle-modal-media { background: #0f0f0f; border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem; }
 .vehicle-modal-main { position: relative; border-radius: 10px; overflow: hidden; background: #0f0f0f; min-height: 260px; }
 .vehicle-modal-main img { width: 100%; height: 100%; object-fit: contain; display: block; background: #0f0f0f; }

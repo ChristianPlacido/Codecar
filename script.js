@@ -245,7 +245,7 @@ const badgeForTags = (tags = []) => {
 
 const mapAutoscoutListing = (listing = {}) => {
     const vehicle = listing.vehicle || {};
-    const gallery = Array.isArray(listing.images) ? listing.images : [];
+    const gallery = Array.isArray(listing.images) ? listing.images.map(img => img?.replace('320.jpg', '960.jpg')) : [];
     const primaryImage = gallery.find(Boolean) || '';
     const price = listing.prices?.public?.priceRaw ?? listing.prices?.dealer?.priceRaw ?? listing.prices?.priceRaw ?? null;
     const body = vehicle.bodyType?.formatted || vehicle.category?.formatted || '';
@@ -338,7 +338,7 @@ const renderVehicles = (list) => {
 
         card.innerHTML = `
             <div class="vehicle-image">
-                <img data-src="${vehicle.image}" alt="${vehicle.title}">
+                <img data-src="${vehicle.image}" alt="${vehicle.title}" loading="lazy" decoding="async">
                 <div class="vehicle-badge ${badge.className}">${badge.text}</div>
                 <div class="vehicle-overlay">
                     <button class="btn-overlay">Vedi annuncio</button>
